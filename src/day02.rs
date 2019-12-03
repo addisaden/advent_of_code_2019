@@ -4,10 +4,10 @@ fn int_program_code() -> Vec<i64> {
     ]
 }
 
-fn calculate() -> i64 {
+fn calculate(noun: i64, verb: i64) -> i64 {
     let mut code = int_program_code();
-    code[1] = 12;
-    code[2] = 2;
+    code[1] = noun;
+    code[2] = verb;
     let mut pos = 0;
     while code[pos] != 99 {
         let target = code[pos + 3] as usize;
@@ -24,6 +24,22 @@ fn calculate() -> i64 {
     code[0]
 }
 
+fn search_19690720() -> i64 {
+    let mut result = 0;
+
+    for j in 0..99 {
+        for i in 0..99 {
+            let calculated_result = calculate(j, i);
+            if calculated_result == 19690720 {
+                result = j * 100 + i;
+            }
+        }
+    }
+    
+    result
+}
+
 pub fn print_result() {
-    println!("Day 02 a: {:?}", calculate());
+    println!("Day 02 a: {:?}", calculate(12, 2));
+    println!("Day 02 b: {:?}", search_19690720());
 }
