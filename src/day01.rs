@@ -110,3 +110,20 @@ pub fn calculate_fuel() -> i64 {
     .map(|&x| (x / 3) - 2)
     .sum()
 }
+
+pub fn calculate_fuel_requirement() -> i64 {
+    star_mass_list()
+    .iter()
+    .map(|&x| {
+        let mut last_mass = x;
+        let mut fuel_sum = 0;
+        while last_mass > 0 {
+            last_mass = last_mass / 3 - 2;
+            if last_mass > 0 {
+                fuel_sum += last_mass;
+            }
+        }
+        fuel_sum
+    })
+    .sum()
+}

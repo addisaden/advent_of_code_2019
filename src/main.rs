@@ -26,6 +26,6 @@ fn advent_of_code_title() {
 fn main() {
     advent_of_code_title();
 
-    let data_from_day_1 = day01::calculate_fuel();
-    println!("Day 01: {:?}", data_from_day_1);
+    println!("Day 01 a: {:?}", day01::calculate_fuel());
+    println!("Day 01 b: {:?}", day01::calculate_fuel_requirement());
 }
