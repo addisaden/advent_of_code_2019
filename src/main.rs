@@ -1,4 +1,5 @@
 mod day01;
+mod day02;
 
 fn advent_of_code_title() {
     println!("     ________   ______   __   __   ______   ___   __    _________  ");
@@ -28,4 +29,6 @@ fn main() {
 
     println!("Day 01 a: {:?}", day01::calculate_fuel());
     println!("Day 01 b: {:?}", day01::calculate_fuel_requirement());
+
+    day02::print_result();
 }
