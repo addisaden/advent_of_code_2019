@@ -6,21 +6,24 @@ fn int_program_code() -> Vec<i64> {
 
 fn calculate() -> i64 {
     let mut code = int_program_code();
-    'calculateprogram: for i in 0..(code.len() / 4) {
-        let pos = i * 4;
+    code[1] = 12;
+    code[2] = 2;
+    let mut pos = 0;
+    while code[pos] != 99 {
         let target = code[pos + 3] as usize;
         let f1 = code[pos + 1] as usize;
         let f2 = code[pos + 2] as usize;
         match code[pos] {
-            99 => break 'calculateprogram,
+            99 => break,
             1 => code[target] = code[f1] + code[f2],
             2 => code[target] = code[f1] * code[f2],
-            _ => continue 'calculateprogram,
+            _ => (),
         }
+        pos += 4;
     }
     code[0]
 }
 
 pub fn print_result() {
-    println!("{:?}", calculate());
+    println!("Day 02 a: {:?}", calculate());
 }
