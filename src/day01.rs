@@ -105,6 +105,8 @@ fn star_mass_list() -> Vec<i64> {
 }
 
 pub fn calculate_fuel() -> i64 {
-    let fuel_per_star = star_mass_list().iter().map(|&x| (x / 3) - 2).collect::<Vec<i64>>();
-    fuel_per_star.iter().sum()
+    star_mass_list()
+    .iter()
+    .map(|&x| (x / 3) - 2)
+    .sum()
 }
