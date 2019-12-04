@@ -1,3 +1,4 @@
+use std::env;
 mod day01;
 mod day02;
 
@@ -26,9 +27,17 @@ fn advent_of_code_title() {
 
 fn main() {
     advent_of_code_title();
-
-    println!("Day 01 a: {:?}", day01::calculate_fuel());
-    println!("Day 01 b: {:?}", day01::calculate_fuel_requirement());
-
-    day02::print_result();
+    let args: Vec<String> = env::args().collect();
+    if args.len() > 1 {
+        match args[1].as_str() {
+            "1" => {
+                println!("Day 01 a: {:?}", day01::calculate_fuel());
+                println!("Day 01 b: {:?}", day01::calculate_fuel_requirement());
+            },
+            "2" => day02::print_result(),
+            _ => println!("unsolved day"),
+        };
+    } else {
+        println!("Bitte als erstes Argument den Tag angeben");
+    }
 }
