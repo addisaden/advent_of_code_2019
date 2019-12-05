@@ -6,6 +6,7 @@ fn data() -> String {
     if args.len() > 2 {
         fs::read_to_string(String::from(args[2].to_string())).expect("")
     } else {
+        println!("USAGE: {} {} <filename-of-input>", args[0], args[1]);
         String::from("")
     }
 }
