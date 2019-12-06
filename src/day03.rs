@@ -64,30 +64,65 @@ pub fn print_result()
                     },
                 };
 
-                for step_b_str in path_b.clone()
+                while (direction_a.x + direction_a.y) != 0 && steps_to_go_a > 0
                 {
-                    let step_b = step_b_str.split_at(1);
-                    let direction_b = match step_b.0
-                    {
-                        "U" => Direction { x: 0, y: -1 },
-                        "D" => Direction { x: 0, y: 1 },
-                        "L" => Direction { x: -1, y: 0 },
-                        "R" => Direction { x: 1, y: 0 },
-                        _ => {
-                            println!("Error on move {:?} on step_b", step_b);
-                            Direction { x: 0, y: 0 }
-                        },
-                    };
+                    position_a.x += direction_a.x;
+                    position_a.y += direction_a.y;
+                    steps_to_go_a -= 1;
 
-                    let mut position_b = Point { x: 0, y: 0 };
-                    let mut steps_to_go_b = match isize::from_str_radix(step_b.1, 10)
+                    if position_a.x == 0 && position_a.y == 0
                     {
-                        Ok(v) => v,
-                        Err(_) => {
-                            println!("Error on move {:?} on step_b", step_b);
-                            0
-                        },
-                    };
+                        continue;
+                    }
+
+                    for step_b_str in path_b.clone()
+                    {
+                        let step_b = step_b_str.split_at(1);
+                        let direction_b = match step_b.0
+                        {
+                            "U" => Direction { x: 0, y: -1 },
+                            "D" => Direction { x: 0, y: 1 },
+                            "L" => Direction { x: -1, y: 0 },
+                            "R" => Direction { x: 1, y: 0 },
+                            _ => {
+                                println!("Error on move {:?} on step_b", step_b);
+                                Direction { x: 0, y: 0 }
+                            },
+                        };
+
+                        let mut position_b = Point { x: 0, y: 0 };
+                        let mut steps_to_go_b = match isize::from_str_radix(step_b.1, 10)
+                        {
+                            Ok(v) => v,
+                            Err(_) => {
+                                println!("Error on move {:?} on step_b", step_b);
+                                0
+                            },
+                        };
+
+                        while (direction_b.x + direction_b.y) != 0 && steps_to_go_b > 0
+                        {
+                            position_b.x += direction_b.x;
+                            position_b.y += direction_b.y;
+                            steps_to_go_b -= 1;
+
+                            if position_b.x == 0 && position_b.y == 0
+                            {
+                                continue;
+                            }
+
+                            if position_a.x == position_b.x && position_a.y == position_b.y
+                            {
+                                let posdis = position_b.x.abs() + position_b.y.abs();
+                                let lastdis = crosswire.x.abs() + crosswire.y.abs();
+                                if posdis < lastdis || lastdis == 0
+                                {
+                                    println!("{} {} distance {}", position_b.x, position_b.y, posdis);
+                                    crosswire = Point { x: position_b.x, y: position_b.y };
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
