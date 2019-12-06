@@ -67,6 +67,8 @@ pub fn print_result()
             let mut crosswire = Point { x: 0, y: 0 };
 
             let mut position_a = Point { x: 0, y: 0 };
+            let mut length_total = -1;
+            let mut length_a = 0;
             for step_a_str in path_a.clone()
             {
                 let step_a = step_a_str.split_at(1);
@@ -79,6 +81,7 @@ pub fn print_result()
                     position_a.x += direction_a.x;
                     position_a.y += direction_a.y;
                     steps_to_go_a -= 1;
+                    length_a += 1;
 
                     if position_a.x == 0 && position_a.y == 0
                     {
@@ -86,6 +89,7 @@ pub fn print_result()
                     }
 
                     let mut position_b = Point { x: 0, y: 0 };
+                    let mut length_b = 0;
                     for step_b_str in path_b.clone()
                     {
                         let step_b = step_b_str.split_at(1);
@@ -98,6 +102,7 @@ pub fn print_result()
                             position_b.x += direction_b.x;
                             position_b.y += direction_b.y;
                             steps_to_go_b -= 1;
+                            length_b += 1;
 
                             if position_b.x == 0 && position_b.y == 0
                             {
@@ -106,6 +111,13 @@ pub fn print_result()
 
                             if position_a.x == position_b.x && position_a.y == position_b.y
                             {
+                                let length_new = length_a + length_b;
+                                if length_total == -1 || length_total > length_new
+                                {
+                                    length_total = length_new;
+                                    println!("length {}", length_total);
+                                }
+
                                 let posdis = position_b.x.abs() + position_b.y.abs();
                                 let lastdis = crosswire.x.abs() + crosswire.y.abs();
                                 if posdis < lastdis || lastdis == 0
