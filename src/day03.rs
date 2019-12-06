@@ -39,6 +39,7 @@ pub fn print_result()
 
             let mut crosswire = Point { x: 0, y: 0 };
 
+            let mut position_a = Point { x: 0, y: 0 };
             for step_a_str in path_a.clone()
             {
                 let step_a = step_a_str.split_at(1);
@@ -54,7 +55,6 @@ pub fn print_result()
                     },
                 };
 
-                let mut position_a = Point { x: 0, y: 0 };
                 let mut steps_to_go_a = match isize::from_str_radix(step_a.1, 10)
                 {
                     Ok(v) => v,
@@ -75,6 +75,7 @@ pub fn print_result()
                         continue;
                     }
 
+                    let mut position_b = Point { x: 0, y: 0 };
                     for step_b_str in path_b.clone()
                     {
                         let step_b = step_b_str.split_at(1);
@@ -90,7 +91,6 @@ pub fn print_result()
                             },
                         };
 
-                        let mut position_b = Point { x: 0, y: 0 };
                         let mut steps_to_go_b = match isize::from_str_radix(step_b.1, 10)
                         {
                             Ok(v) => v,
