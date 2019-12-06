@@ -26,6 +26,33 @@ fn data() -> String
     }
 }
 
+fn get_direction(order: &str) -> Direction
+{
+    match order
+    {
+        "U" => Direction { x: 0, y: -1 },
+        "D" => Direction { x: 0, y: 1 },
+        "L" => Direction { x: -1, y: 0 },
+        "R" => Direction { x: 1, y: 0 },
+        _ => {
+            println!("Error on move {:?}", order);
+            Direction { x: 0, y: 0 }
+        },
+    }
+}
+
+fn get_steps(stepstring: &str) -> isize
+{
+    match isize::from_str_radix(stepstring, 10)
+    {
+        Ok(v) => v,
+        Err(_) => {
+            println!("Error on move {:?}", stepstring);
+            0
+        },
+    }
+}
+
 pub fn print_result()
 {
     let datastring = data();
@@ -43,26 +70,9 @@ pub fn print_result()
             for step_a_str in path_a.clone()
             {
                 let step_a = step_a_str.split_at(1);
-                let direction_a = match step_a.0
-                {
-                    "U" => Direction { x: 0, y: -1 },
-                    "D" => Direction { x: 0, y: 1 },
-                    "L" => Direction { x: -1, y: 0 },
-                    "R" => Direction { x: 1, y: 0 },
-                    _ => {
-                        println!("Error on move {:?} on step_a", step_a);
-                        Direction { x: 0, y: 0 }
-                    },
-                };
+                let direction_a = get_direction(step_a.0);
 
-                let mut steps_to_go_a = match isize::from_str_radix(step_a.1, 10)
-                {
-                    Ok(v) => v,
-                    Err(_) => {
-                        println!("Error on move {:?} on step_a", step_a);
-                        0
-                    },
-                };
+                let mut steps_to_go_a = get_steps(step_a.1);
 
                 while (direction_a.x + direction_a.y) != 0 && steps_to_go_a > 0
                 {
@@ -79,26 +89,9 @@ pub fn print_result()
                     for step_b_str in path_b.clone()
                     {
                         let step_b = step_b_str.split_at(1);
-                        let direction_b = match step_b.0
-                        {
-                            "U" => Direction { x: 0, y: -1 },
-                            "D" => Direction { x: 0, y: 1 },
-                            "L" => Direction { x: -1, y: 0 },
-                            "R" => Direction { x: 1, y: 0 },
-                            _ => {
-                                println!("Error on move {:?} on step_b", step_b);
-                                Direction { x: 0, y: 0 }
-                            },
-                        };
+                        let direction_b = get_direction(step_b.0);
 
-                        let mut steps_to_go_b = match isize::from_str_radix(step_b.1, 10)
-                        {
-                            Ok(v) => v,
-                            Err(_) => {
-                                println!("Error on move {:?} on step_b", step_b);
-                                0
-                            },
-                        };
+                        let mut steps_to_go_b = get_steps(step_b.1);
 
                         while (direction_b.x + direction_b.y) != 0 && steps_to_go_b > 0
                         {

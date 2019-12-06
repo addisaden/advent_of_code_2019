@@ -1,0 +1,1 @@
+time cargo run 3 day03.input.txt | tee day03.output.txt
