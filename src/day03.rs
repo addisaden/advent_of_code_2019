@@ -42,38 +42,52 @@ pub fn print_result()
             for step_a_str in path_a.clone()
             {
                 let step_a = step_a_str.split_at(1);
-                let mut direction_a = Direction { x: 0, y: 0 };
-                let mut position_a = Point { x: 0, y: 0 };
-                let mut steps_to_go = 0;
-                match isize::from_str_radix(step_a.1, 10)
+                let direction_a = match step_a.0
                 {
-                    Ok(v) => steps_to_go = v,
-                    Err(_) => continue,
-                }
+                    "U" => Direction { x: 0, y: -1 },
+                    "D" => Direction { x: 0, y: 1 },
+                    "L" => Direction { x: -1, y: 0 },
+                    "R" => Direction { x: 1, y: 0 },
+                    _ => {
+                        println!("Error on move {:?} on step_a", step_a);
+                        Direction { x: 0, y: 0 }
+                    },
+                };
 
-                match step_a.0
+                let mut position_a = Point { x: 0, y: 0 };
+                let mut steps_to_go_a = match isize::from_str_radix(step_a.1, 10)
                 {
-                    "U" => direction_a = Direction { x: 0, y: -1 },
-                    "D" => direction_a = Direction { x: 0, y: 1 },
-                    "L" => direction_a = Direction { x: -1, y: 0 },
-                    "R" => direction_a = Direction { x: 1, y: 0 },
-                    _ => println!("Error on move {:?} on step_a", step_a),
-                }
+                    Ok(v) => v,
+                    Err(_) => {
+                        println!("Error on move {:?} on step_a", step_a);
+                        0
+                    },
+                };
 
                 for step_b_str in path_b.clone()
                 {
                     let step_b = step_b_str.split_at(1);
-                    let mut direction_b = Direction { x: 0, y: 0};
-                    let mut position_b = Point { x: 0, y: 0 };
-
-                    match step_b.0
+                    let direction_b = match step_b.0
                     {
-                        "U" => direction_b = Direction { x: 0, y: -1},
-                        "D" => direction_b = Direction { x: 0, y: 1},
-                        "L" => direction_b = Direction { x: -1, y: 0},
-                        "R" => direction_b = Direction { x: 1, y: 0},
-                        _ => println!("Error on move {:?} on step_b", step_b),
-                    }
+                        "U" => Direction { x: 0, y: -1 },
+                        "D" => Direction { x: 0, y: 1 },
+                        "L" => Direction { x: -1, y: 0 },
+                        "R" => Direction { x: 1, y: 0 },
+                        _ => {
+                            println!("Error on move {:?} on step_b", step_b);
+                            Direction { x: 0, y: 0 }
+                        },
+                    };
+
+                    let mut position_b = Point { x: 0, y: 0 };
+                    let mut steps_to_go_b = match isize::from_str_radix(step_b.1, 10)
+                    {
+                        Ok(v) => v,
+                        Err(_) => {
+                            println!("Error on move {:?} on step_b", step_b);
+                            0
+                        },
+                    };
                 }
             }
         }
