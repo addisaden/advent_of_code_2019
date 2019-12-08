@@ -2,6 +2,7 @@ use std::env;
 mod day01;
 mod day02;
 mod day03;
+mod day04;
 
 fn advent_of_code_title() {
     println!("     ________   ______   __   __   ______   ___   __    _________  ");
@@ -37,6 +38,7 @@ fn main() {
             },
             "2" => day02::print_result(),
             "3" => day03::print_result(),
+            "4" => day04::print_result(),
             _ => println!("unsolved day"),
         };
     } else {
